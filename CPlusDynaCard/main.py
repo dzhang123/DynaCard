@@ -32,6 +32,7 @@ EXAMPLE_FILES = [
 'full_pump.csv',
 'tubing_movement.csv',
 'fluid_pound.csv',
+'flowing_well.csv',
 'gas_interference.csv',
 'pump_hitting.csv',
 'bent_barrel.csv',
@@ -46,7 +47,7 @@ def test():
     for f in EXAMPLE_FILES:
         #for f in ['gas_interference.csv']:
         if not f.endswith('.csv'): continue
-        output = sp.check_output(['./a.out', EXAMPLE_DATA_DIR+f, '60.0'])
+        output = sp.check_output(['./a.out', EXAMPLE_DATA_DIR+f, '10.0'])
         state_pred = output.strip().split('\n')[-1]
         print f, ': ', state_pred
         if f.replace('.csv','').replace('_', ' ') not in output:
