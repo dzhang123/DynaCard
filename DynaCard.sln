@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpDynaCard", "CSharpDyn
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CPlusDynaCard", "CPlusDynaCard\CPlusDynaCard.vcxproj", "{722A5E22-02FA-41E7-B015-8044527A5FEF}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CPlusDeliverable", "CPlusDeliverable\CPlusDeliverable.vcxproj", "{F353FE45-139B-4F88-B171-0BAF1A73A692}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,16 @@ Global
 		{722A5E22-02FA-41E7-B015-8044527A5FEF}.Release|x64.Build.0 = Release|x64
 		{722A5E22-02FA-41E7-B015-8044527A5FEF}.Release|x86.ActiveCfg = Release|Win32
 		{722A5E22-02FA-41E7-B015-8044527A5FEF}.Release|x86.Build.0 = Release|Win32
+		{F353FE45-139B-4F88-B171-0BAF1A73A692}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{F353FE45-139B-4F88-B171-0BAF1A73A692}.Debug|x64.ActiveCfg = Debug|x64
+		{F353FE45-139B-4F88-B171-0BAF1A73A692}.Debug|x64.Build.0 = Debug|x64
+		{F353FE45-139B-4F88-B171-0BAF1A73A692}.Debug|x86.ActiveCfg = Debug|Win32
+		{F353FE45-139B-4F88-B171-0BAF1A73A692}.Debug|x86.Build.0 = Debug|Win32
+		{F353FE45-139B-4F88-B171-0BAF1A73A692}.Release|Any CPU.ActiveCfg = Release|Win32
+		{F353FE45-139B-4F88-B171-0BAF1A73A692}.Release|x64.ActiveCfg = Release|x64
+		{F353FE45-139B-4F88-B171-0BAF1A73A692}.Release|x64.Build.0 = Release|x64
+		{F353FE45-139B-4F88-B171-0BAF1A73A692}.Release|x86.ActiveCfg = Release|Win32
+		{F353FE45-139B-4F88-B171-0BAF1A73A692}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

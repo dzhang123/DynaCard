@@ -28,8 +28,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="fitting plot validation.xlsx" />
-    <None Include="Pump State Deliverable Evaluation.pptx" />
     <None Include="main.py" />
     <None Include="process.py" />
   </ItemGroup>
