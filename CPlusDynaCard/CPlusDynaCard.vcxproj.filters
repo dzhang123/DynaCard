@@ -23,8 +23,14 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PumpState.cpp">
+    <ClCompile Include="classify_pump_state.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="fitting plot validation.xlsx" />
+    <None Include="main.py" />
+    <None Include="process.py" />
+    <None Include="Pump State Deliverable Evaluation.pptx" />
   </ItemGroup>
 </Project>
