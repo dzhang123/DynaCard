@@ -10,7 +10,7 @@ namespace DynaCard
         {
             Console.WriteLine("Hello World!");
             if (args.Length < 1)
-                System.Console.WriteLine("Usage: DynaCardApp filename")
+                System.Console.WriteLine("Usage: DynaCardApp filename");
         }
 
 
