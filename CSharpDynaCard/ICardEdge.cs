@@ -2,8 +2,8 @@
 namespace DynaCard
 {
     public enum Orientation {
-        Portrait,
-        Landscape
+        Vertical,
+        Horizontal
     }
 
     public interface IOriented {
@@ -29,7 +29,7 @@ namespace DynaCard
 
         public Orientation GetOrientation()
         {
-            return Orientation.Portrait;
+            return Orientation.Vertical;
         }
     }
 
@@ -42,7 +42,7 @@ namespace DynaCard
 
         public Orientation GetOrientation()
         {
-            return Orientation.Landscape;
+            return Orientation.Horizontal;
         }
     }
 
@@ -55,7 +55,7 @@ namespace DynaCard
 
         public Orientation GetOrientation()
         {
-            return Orientation.Portrait;
+            return Orientation.Vertical;
         }
     }
 
@@ -68,7 +68,7 @@ namespace DynaCard
 
         public Orientation GetOrientation()
         {
-            return Orientation.Landscape;
+            return Orientation.Horizontal;
         }
     }
 }

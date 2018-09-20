@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Linq;
 
 
 namespace DynaCard
@@ -13,13 +14,28 @@ namespace DynaCard
             Console.WriteLine("Hello World!");
             if (args.Length < 1)
                 System.Console.WriteLine("Usage: DynaCardApp filename");
-            List<(int, double, double)> values = (List<(int, double, double)>)(new DynaCardApp()).ParseFile(args[0]);
+            List<(int, double, double weight)> values = (List<(int, double, double)>)(new DynaCardApp()).ParseFile(args[0]);
             foreach ((int pos, double len, double weight) in values) {
                 System.Console.WriteLine($"{pos}, {len}, {weight}");
             }
+
+            System.Console.WriteLine();
+            System.Console.WriteLine();
+            System.Console.WriteLine();
+
+
+            // test normalize
+            List<double> weights = (from w in values
+                                    select w.weight).ToList();
+            List<double> nweights = Normalize(weights);
+            foreach(var nw in nweights)
+            {
+                System.Console.WriteLine(nw);
+            }
         }
 
-        //TODO: Create doc info
+        // Parse the file and extract numerical values in the format of "position, stroke length, weight"
+        // return a list of tuple
         public IEnumerable<(int Position, double Length, double Weight)> ParseFile(string filename)
         {
             List<(int, double, double)> values = new List<(int, double, double)>();
@@ -41,6 +57,44 @@ namespace DynaCard
                 }
             }
             return values;
+        }
+
+        // TODO
+        public static List<double> Normalize(List<double> values)
+        {
+            
+            // do linq later
+            var min = Double.MaxValue;
+            var max = Double.MinValue;
+            foreach (var v in values) {
+                if (v < min)
+                    min = v;
+                if (v > max)
+                    max = v;
+            };
+            List<double> normalized = new List<double>();
+            var iter = values.GetEnumerator();
+            while (iter.MoveNext())
+            {
+                normalized.Add((iter.Current - min) / (max - min));
+            }
+            return normalized;
+        }
+
+        public List<(int position, double length, double weight)> FindFirstStrokeCycle(List<(int position, double length, double weight)> values)
+        {
+            // find indices of first pos=0 and second pos=0 to find the first cycle
+            // must use Linq or lambda
+
+
+            return null;
+        }
+
+        public List<(int position, double length, double weight)> FindAverageStrokeCycle(List<(int position, double length, double weight)> values)
+        {
+
+
+            return null;
         }
     }
 }
