@@ -32,7 +32,7 @@ namespace DynaCard
 
             // test normalize
             List<double> weights = (from w in first
-                                    select w.weight).ToList();
+                                    select w.w).ToList();
             List<double> nweights = Normalize(weights);
             foreach(var nw in nweights)
             {
@@ -103,19 +103,17 @@ namespace DynaCard
             FindStrokeCycles(List<(int position, double length, double weight)> values, bool allStrokeCycles = false)
         {
             // find indices of first pos=0 and second pos=0 to find the first cycle
-            // 1. trim the values to eliminate incomplete cycles at both ends
-            IEnumerable<(int position, double, double)> cycles = values.SkipWhile(v => v.position != 0);
             
-            cycles = cycles.Reverse().SkipWhile(v => v.position != 360).Reverse();
-            if (cycles.Count() == 0)
-                return cycles.ToList();
-
-            List<int> positions = (from cycle in cycles select cycle.position).ToList();
+            List<int> positions = (from cycle in values select cycle.position).ToList();
             
-            int cycleStartIndex = positions.IndexOf(0);
-            int cycleEndIndex = positions.IndexOf(360);
-            int count = cycleEndIndex - cycleStartIndex + 1;
-            List<(int, double, double)> singleCycle = cycles.Take(count).ToList();
+            int first_zero_index = positions.IndexOf(0);
+            if (first_zero_index == -1)
+                return values;
+            int  second_zero_index = positions.IndexOf(0, first_zero_index + 1);
+            if (second_zero_index == -1)
+                second_zero_index = positions.Count() - 1;
+            int count = second_zero_index - first_zero_index + 1;
+            List<(int, double, double)> singleCycle = values.Skip(first_zero_index).Take(count).ToList();
             // return first cycle for now.
             return singleCycle;
         }

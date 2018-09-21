@@ -1,74 +1,82 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace DynaCard
 {
-    public enum Orientation {
-        Vertical,
-        Horizontal
+    public enum Side {
+        Left,
+        Top,
+        Right,
+        Bottom
     }
 
-    public interface IOriented {
-        Orientation GetOrientation();
+
+    public struct Least_Squared_Line
+    {
+        double slop;
+        double intercept;
+        double r2;
     }
+
+    public class Edge
+    {
+        public string Name { get;set;}
+        public Side Position { get; set; }
+        public Least_Squared_Line LeastSquaredFit { get; private set; }
+        public Least_Squared_Line InverseLeastSquaredFit { get; private set; }
+        public List<(double x, double y)> points { get; set; }
+
+        public bool Fit()
+        {
+
+        }
+    }
+
+
+
     public interface ICardEdge
     {
-        // TODO: need to make this a lambda function or at least a lambda like 
-        // parameter.
         void Fit();
+        Side GetSide();
     }
 
-    public abstract class CardEdge : ICardEdge {
-        public abstract void Fit();
+    public class CardEdge : ICardEdge {
+        public void Fit();
+        public Side GetSide();
     }
 
-    public class CardLeftEdge : ICardEdge, IOriented
+    public class CardLeftEdge : ICardEdge 
     {
         public void Fit()
         {
             throw new NotImplementedException();
         }
 
-        public Orientation GetOrientation()
-        {
-            return Orientation.Vertical;
-        }
     }
 
-    public class CardTopEdge : ICardEdge, IOriented
+    public class CardTopEdge : ICardEdge
     {
         public void Fit()
         {
             throw new NotImplementedException();
         }
 
-        public Orientation GetOrientation()
-        {
-            return Orientation.Horizontal;
-        }
     }
 
-    public class CardRightEdge : ICardEdge, IOriented
+    public class CardRightEdge : ICardEdge
     {
         public void Fit()
         {
             throw new NotImplementedException();
         }
 
-        public Orientation GetOrientation()
-        {
-            return Orientation.Vertical;
-        }
     }
 
-    public class CardBottomEdge : ICardEdge, IOriented
+    public class CardBottomEdge : ICardEdge
     {
         public void Fit()
         {
             throw new NotImplementedException();
-        }
-
-        public Orientation GetOrientation()
-        {
-            return Orientation.Horizontal;
         }
     }
 }
