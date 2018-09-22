@@ -29,6 +29,5 @@ namespace DynaCard
         public CardType Fit() {
             return CardType.Other;
         }
-
     }
 }
