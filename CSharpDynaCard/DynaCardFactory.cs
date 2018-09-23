@@ -19,6 +19,11 @@ namespace DynaCard
             return NewCard(values).Shape;
         }
 
+        public static IEnumerable<(int Position, double Length, double Weight)> ParseFile(System.IO.FileInfo fileInfo)
+        {
+            return ParseFile(fileInfo.FullName);
+        }
+
         // Parse the file and extract numerical values in the format of "position, stroke length, weight"
         // return a list of tuple
         public static IEnumerable<(int Position, double Length, double Weight)> ParseFile(string filename)
