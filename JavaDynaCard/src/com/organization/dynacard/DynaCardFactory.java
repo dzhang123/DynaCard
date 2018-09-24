@@ -3,6 +3,10 @@ package com.organization.dynacard;
 import java.util.Collections;
 import java.util.List;
 import java.io.FileReader;
+import java.nio.file.FileSystem;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import com.organization.dynacard.ICardEdge.Sides;
@@ -13,8 +17,12 @@ public class DynaCardFactory {
 	
 	public static List<CardParameters> parseFile(String fileName) 
 	{
-		List<CardParameters> values = new ArrayList<CardParameters>();
+		Path filePath = Paths.get(fileName);
+		filePath = filePath.toAbsolutePath();
 		
+		List<CardParameters> values = new ArrayList<CardParameters>();
+		if (!Files.exists(filePath))
+			return values;
 		
 		return values;
 	}
@@ -29,7 +37,7 @@ public class DynaCardFactory {
 		
 		if (maxWeight < minimumAcceptableWeight)
 			return CardShape.Flowing_Well;
-		return NewCard(values).getShape();		
+		return NewCard(values).getShape();
 	}
 	
 	public static DynaCard NewCard(List<CardParameters> values) {
