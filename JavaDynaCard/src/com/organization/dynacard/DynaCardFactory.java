@@ -2,7 +2,10 @@ package com.organization.dynacard;
 
 import java.util.Collections;
 import java.util.List;
+import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.file.FileSystem;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -23,6 +26,32 @@ public class DynaCardFactory {
 		List<CardParameters> values = new ArrayList<CardParameters>();
 		if (!Files.exists(filePath))
 			return values;
+		
+		Charset charset = Charset.forName("US-ASCII");
+		try (BufferedReader reader = Files.newBufferedReader(filePath, charset)) {
+			String line = null;
+			while ((line = reader.readLine()) != null) {
+				String trimmed = line.trim();
+				if (trimmed.length() == 0 || trimmed.startsWith("#") || !trimmed.matches("^[0-9]+,[0-9]+[.]?[0-9]*,[0-9]+[.]?[0-9]*$"))
+					continue;
+				String[] parameters = trimmed.split(",");
+				int angle = 0;
+				double stroke = 0.0;
+				double weight = 0.0;
+				try {
+					angle = Integer.parseInt(parameters[0]);
+					stroke = Double.parseDouble(parameters[1]);
+					weight = Double.parseDouble(parameters[2]);
+				} catch (NumberFormatException e) {
+					continue;
+				}
+				values.add(new CardParameters(angle, stroke, weight));
+			}
+			
+		} catch (IOException e) {
+			System.err.format("IOException: %s%n", e);
+		} 
+		
 		
 		return values;
 	}

@@ -24,16 +24,4 @@ public interface ICardEdge {
 	public double getLength();
 	public LeastSquaredLine getLeastSquaredLine();
 	public LeastSquaredLine getInverseLeastSquaredLine();
-	
-	public static class CardParameters {
-		public int anglePositoin; //degree
-		public double strokeDisplacement;
-		public double pumpWeight;
-		
-		public CardParameters(int angle, double stroke, double weight) {
-			anglePositoin = angle;
-			strokeDisplacement = stroke;
-			pumpWeight = weight;
-		}
-	}
 }
