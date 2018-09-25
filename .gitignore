@@ -260,3 +260,6 @@ paket-files/
 __pycache__/
 *.pyc
 /.metadata/
+
+# Eclipse IDE
+.recommenders
