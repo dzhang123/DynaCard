@@ -1,0 +1,9 @@
+package com.organization.dynacard;
+
+public class ICardEdge {
+	public enum Sides {
+		
+	}
+	private String name;
+	pri
+}

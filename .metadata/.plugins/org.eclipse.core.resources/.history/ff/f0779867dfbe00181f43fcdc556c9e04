@@ -1,0 +1,5 @@
+package com.organization.dynacard;
+
+public class ILeastSquaredFit {
+	LeastSquaredLine getLeastSquaredFit(List<Point> points);
+}

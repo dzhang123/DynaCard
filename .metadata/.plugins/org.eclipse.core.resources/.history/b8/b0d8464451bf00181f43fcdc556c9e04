@@ -1,0 +1,20 @@
+package com.organization.dynacard;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.ArrayList;
+import com.organization.dynacard.IDynaCard.CardShape;
+
+public class DynaCardFactory {
+
+	public static CardShape getCardShape(List<double[]> values, double minimumAcceptableWeight) {
+		
+		List<double> weights = new ArrayList<double>();
+		
+		double maxWeigth = Collections.max(values);
+		
+        if (maxWeigth < minimumAcceptableWeight)
+            return CardShape.Flowing_Well;
+        return NewCard(values).Shape;
+	}
+}

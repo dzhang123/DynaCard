@@ -1,0 +1,12 @@
+package com.organization.dynacard;
+
+import java.util.List;
+import com.organization.dynacard.IDynaCard.CardShape;
+
+public class DynaCardFactory {
+
+	public static CardShape getCardShape(List<Point> values, double minimumAcceptableWeight) {
+		
+		
+	}
+}

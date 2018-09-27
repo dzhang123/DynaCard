@@ -1,0 +1,13 @@
+package com.organization.dynacard;
+
+public class LeastSquaredLine {
+	private double slope;
+	
+	public double getSlope() {
+		return this.slope;
+	}
+	public void setSlope (double slope) {
+		this.slope = slope;
+	}
+}
+

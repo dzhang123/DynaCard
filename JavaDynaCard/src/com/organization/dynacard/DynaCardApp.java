@@ -24,6 +24,7 @@ public class DynaCardApp {
 		
 		CardShape shape = DynaCardFactory.getCardShape(params, minWeight);
 		
+		
 		System.out.format("Card shape is %s%n", shape.toString());
 	}
 }
