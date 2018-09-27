@@ -262,4 +262,5 @@ __pycache__/
 /.metadata/
 
 # Eclipse IDE
-.recommenders
+# .recommenders
+# .metadata
