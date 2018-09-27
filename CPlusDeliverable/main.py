@@ -26,7 +26,7 @@ def plot_example_data():
         plt.close()
         plt.scatter(df.length, df.weight)#, marker='.')
         plt.title(f.replace('.csv', '').replace('_', ' '))
-        plt.savefig(EXAMPLE_DATA_DIR + f.replace('.csv', '.jpg'))
+        plt.savefig(EXAMPLE_DATA_DIR + f.replace('.csv', '.png'))
 
 EXAMPLE_FILES = [
 'full_pump.csv',
