@@ -1,0 +1,16 @@
+package com.organization.dynacard;
+
+public class DynaCard implements IDynaCard {
+
+	@Override
+	public CardShape getShape() {
+		return guessState();
+	}
+
+	@Override
+	public CardShape guessState() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}
