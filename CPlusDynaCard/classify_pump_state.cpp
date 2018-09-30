@@ -476,6 +476,7 @@ ofstream prepare_report(string fdir) {
 void report_pump_state(ofstream rfname, string fname, string pump_state, string checked, string comments) {
 
 	rfname << fname << "," << pump_state << "," << checked << comments << endl;
+	rfname.close();
 }
 
 
