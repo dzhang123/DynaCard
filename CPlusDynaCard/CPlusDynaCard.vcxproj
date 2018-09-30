@@ -166,8 +166,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="fitting plot validation.xlsx" />
-    <None Include="main.py" />
-    <None Include="process.py" />
     <None Include="Pump State Deliverable Evaluation.pptx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

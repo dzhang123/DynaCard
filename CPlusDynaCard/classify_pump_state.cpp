@@ -476,7 +476,7 @@ ofstream prepare_report(string fdir) {
 void report_pump_state(ofstream rfname, string fname, string pump_state, string checked, string comments) {
 
 	rfname << fname << "," << pump_state << "," << checked << comments << endl;
-	rfname.close();
+	//rfname.close();
 }
 
 
@@ -494,7 +494,10 @@ int main(int argc, char *argv[]) {
 
 	cout << state << endl;
 
-	report_pump_state(prepare_report("test"), fname, state, "yes", "");
+	report_pump_state(prepare_report("test") , fname, state, "yes", "");
+
+	report_all_pump_states(prepare_report("test"), fname);
+
 
 	return 0;
 }
