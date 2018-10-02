@@ -28,22 +28,6 @@ def plot_example_data():
         plt.title(f.replace('.csv', '').replace('_', ' '))
         plt.savefig(EXAMPLE_DATA_DIR + f.replace('.csv', '.png'))
 
-def test_example_data():
-    f_report=open('pump_report.csv', 'w')
-    f_report.write('File Name, Pump State, Checked, Comments' + '\n')
-
-    _ = sp.check_output(['g++', 'classify_pump_state.cpp'])
-    for f in os.listdir(EXAMPLE_DATA_DIR):
-        if not f.endswith('.csv'): continue
-        print f
-        output = sp.check_output(['./a.out', EXAMPLE_DATA_DIR+f, '10.0'])
-        state_pred = output.strip().split('\n')[-1]
-        f_report.write(f + ',' + state_pred + ',' + 'unknown' + ',' + 'no comments provided' + '\n')
-        print f, ': ', state_pred
-        
-    f_report.close()
-
-
 EXAMPLE_FILES = [
 'full_pump.csv',
 'tubing_movement.csv',
@@ -71,5 +55,4 @@ def test():
 
 if __name__=='__main__':
     plot_example_data()
-    #test()
-    test_example_data()
+    test()
