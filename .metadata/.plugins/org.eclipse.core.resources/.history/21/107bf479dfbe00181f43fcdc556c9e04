@@ -1,7 +1,0 @@
-import java.util.List;
-
-package com.organization.dynacard;
-
-public interface ILeastSquaredFit {
-	LeastSquaredLine getLeastSquaredFit(List<Point> points);
-}

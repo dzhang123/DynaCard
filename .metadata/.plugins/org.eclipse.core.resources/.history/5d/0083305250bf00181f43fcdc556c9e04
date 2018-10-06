@@ -1,9 +1,0 @@
-package com.organization.dynacard;
-
-public class DynaCardFactory {
-
-	public static CardShape getCardShape(List<Point> values, double minimumAcceptableWeight) {
-		
-		
-	}
-}
