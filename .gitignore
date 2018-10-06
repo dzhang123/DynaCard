@@ -268,3 +268,4 @@ __pycache__/
 
 # Others
 .DS_Store
+/.metadata/
