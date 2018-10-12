@@ -26,8 +26,13 @@ def plot_example_data():
         plt.close()
         plt.scatter(df.length, df.weight)#, marker='.')
         plt.title(f.replace('.csv', '').replace('_', ' '))
-        plt.savefig(EXAMPLE_DATA_DIR + f.replace('.csv', '.jpg'))
+        plt.savefig(EXAMPLE_DATA_DIR + f.replace('.csv', '.png'))
 
+def test_example_data():
+        _ = sp.check_output(['g++', 'classify_pump_state.cpp', '-lstdc++fs'])
+        sp.check_output(['./a.out', EXAMPLE_DATA_DIR, '10.0'])
+        
+    
 EXAMPLE_FILES = [
 'full_pump.csv',
 'tubing_movement.csv',
@@ -43,7 +48,7 @@ EXAMPLE_FILES = [
 'drag_friction.csv',
 ]
 def test():
-    _ = sp.check_output(['g++', 'classify_pump_state.cpp'])
+    _ = sp.check_output(['g++', 'classify_pump_state.cpp', '-lstdc++fs'])
     for f in EXAMPLE_FILES:
         #for f in ['gas_interference.csv']:
         if not f.endswith('.csv'): continue
@@ -55,4 +60,5 @@ def test():
 
 if __name__=='__main__':
     plot_example_data()
-    test()
+    test_example_data()
+    #test()

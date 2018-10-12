@@ -12,7 +12,7 @@ g++ hello.cpp
 #include <cmath>
 #include <ctime>
 #include <algorithm>
-
+#include <experimental/filesystem>
 
 using namespace std;
 
@@ -442,43 +442,91 @@ string get_pump_state(string fname, double min_acceptable_peak_weight)
 	cout << "max val " << position_x_y[2][max_ind] << endl;
 	if (position_x_y[2][max_ind] < min_acceptable_peak_weight) {
 		cout << "flowing well" << endl;
-		return 0;
+		return "flowing well";
 	}
 	// Otherwise break into edges
 	vector<Edge> edges = break_into_edges(position, xs, ys);
 	Shape shape(&edges[0], &edges[1], &edges[2], &edges[3]);
 	// And classify based on shape
 	string state = guess_pump_state(shape);
+	cout << state << endl;
 	return state;
 }
 
-ofstream prepare_report(string fdir) {
+// return a file output stream from passed-in filename (string)
+ofstream prepare_report(string report_file_name) {
 	// current date/time based on current system
 	std::time_t now = std::time(0);
-	// 
 	std::tm *ltm = localtime(&now);
 
-	// print various components of tm structure.
-	cout << "Year" << 1970 + ltm->tm_year << endl;
-	cout << "Month: " << 1 + ltm->tm_mon << endl;
-	cout << "Day: " << ltm->tm_mday << endl;
-	cout << "Time: " << 1 + ltm->tm_hour << ":";
-	cout << 1 + ltm->tm_min << ":";
-	cout << 1 + ltm->tm_sec << endl;
-
-	string newfname = fdir + "_" + to_string(ltm->tm_year + 1970) + to_string(1 + ltm->tm_mon) + to_string(ltm->tm_mday) + to_string(ltm->tm_hour) + ".csv";
-
+	// The file name is in the pattern of: filename_year_month_day.csv
+	string newfname = report_file_name + "_" + to_string(ltm->tm_year + 1900) + to_string(1 + ltm->tm_mon) + to_string(ltm->tm_mday) + ".csv";
 	ofstream report_file(newfname);
 
 	return report_file;
-
 }
 void report_pump_state(ofstream rfname, string fname, string pump_state, string checked, string comments) {
 
 	rfname << fname << "," << pump_state << "," << checked << comments << endl;
-	//rfname.close();
+	rfname.close();
 }
 
+struct PumpStateReport {
+	string file_name;
+	string pump_state;
+	string checked;
+	string comments;
+};
+void report_pump_states(ofstream rfname, vector<PumpStateReport> pump_states) {
+
+	rfname << "File Name" << "," << "Pump State" << "," << "Checked" << "," << "Comments" << endl;
+	for (int i = 0; i < pump_states.size(); i++) {
+		rfname << pump_states[i].file_name << "," << pump_states[i].pump_state << "," << pump_states[i].checked << "," << pump_states[i].comments << endl;
+	}
+	rfname.close();
+	return;
+}
+
+// main entry point for running the pump analysis
+void run_analysis(string fname, double min_acceptable_peak_weight) {
+	namespace fs = std::experimental::filesystem;
+
+	const fs::path path(fname);
+	std::error_code ec;
+	if (fs::exists(path) && fs::is_directory(path, ec)) {
+		fs::directory_iterator itor;
+		vector<string> listOfCSVFiles;
+		fs::directory_iterator iter(path);
+		fs::directory_iterator end;
+		while (iter != end) {
+			if ((iter->path().filename().extension().string()) == ".csv") {
+				listOfCSVFiles.push_back(iter->path().relative_path().string());
+			}
+			iter.increment(ec);
+		}
+
+		vector<PumpStateReport> states;
+		//ofstream reportfile = prepare_report("pump_report");
+		for (int i = 0; i < listOfCSVFiles.size(); i++) {
+			string name = listOfCSVFiles[i];
+			string state = get_pump_state(name, min_acceptable_peak_weight);
+			PumpStateReport psr;
+			psr.file_name = name;
+			psr.pump_state = state;
+			psr.checked = "";
+			psr.comments = "";
+			states.push_back(psr);
+		}
+
+		report_pump_states(prepare_report("pump_report"), states);
+	}
+	else {
+		string state = get_pump_state(fname, min_acceptable_peak_weight);
+		report_pump_state(prepare_report("pump_report"), fname, state, "", "");
+		//cout << state << endl;
+	}
+	return;
+}
 
 int main(int argc, char *argv[]) {
 	// bug fix
@@ -489,15 +537,9 @@ int main(int argc, char *argv[]) {
 	// get filename and minimum weight from command line
 	double min_acceptable_peak_weight = stod(argv[2]);
 	string fname(argv[1]);
+	// Read in the file
 
-	string state = get_pump_state(fname, min_acceptable_peak_weight);
-
-	cout << state << endl;
-
-	report_pump_state(prepare_report("test") , fname, state, "yes", "");
-
-	report_all_pump_states(prepare_report("test"), fname);
-
+	run_analysis(fname, min_acceptable_peak_weight);
 
 	return 0;
 }
