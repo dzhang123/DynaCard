@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CPlusDynaCard", "CPlusDynaC
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CPlusDeliverable", "CPlusDeliverable\CPlusDeliverable.vcxproj", "{F353FE45-139B-4F88-B171-0BAF1A73A692}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "PythonDynaCard", "PythonDynaCard\PythonDynaCard.pyproj", "{DC75C37D-5995-4CB3-8400-B3C3439F1025}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,12 @@ Global
 		{F353FE45-139B-4F88-B171-0BAF1A73A692}.Release|x64.Build.0 = Release|x64
 		{F353FE45-139B-4F88-B171-0BAF1A73A692}.Release|x86.ActiveCfg = Release|Win32
 		{F353FE45-139B-4F88-B171-0BAF1A73A692}.Release|x86.Build.0 = Release|Win32
+		{DC75C37D-5995-4CB3-8400-B3C3439F1025}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC75C37D-5995-4CB3-8400-B3C3439F1025}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{DC75C37D-5995-4CB3-8400-B3C3439F1025}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DC75C37D-5995-4CB3-8400-B3C3439F1025}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC75C37D-5995-4CB3-8400-B3C3439F1025}.Release|x64.ActiveCfg = Release|Any CPU
+		{DC75C37D-5995-4CB3-8400-B3C3439F1025}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
