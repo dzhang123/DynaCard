@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CPlusDeliverable", "CPlusDe
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "PythonDynaCard", "PythonDynaCard\PythonDynaCard.pyproj", "{DC75C37D-5995-4CB3-8400-B3C3439F1025}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ComputeShapeProperties", "ComputeShapeProperties\ComputeShapeProperties.vcxproj", "{F4844375-BE1D-4B94-9153-10863EF49D72}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,16 @@ Global
 		{DC75C37D-5995-4CB3-8400-B3C3439F1025}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DC75C37D-5995-4CB3-8400-B3C3439F1025}.Release|x64.ActiveCfg = Release|Any CPU
 		{DC75C37D-5995-4CB3-8400-B3C3439F1025}.Release|x86.ActiveCfg = Release|Any CPU
+		{F4844375-BE1D-4B94-9153-10863EF49D72}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{F4844375-BE1D-4B94-9153-10863EF49D72}.Debug|x64.ActiveCfg = Debug|x64
+		{F4844375-BE1D-4B94-9153-10863EF49D72}.Debug|x64.Build.0 = Debug|x64
+		{F4844375-BE1D-4B94-9153-10863EF49D72}.Debug|x86.ActiveCfg = Debug|Win32
+		{F4844375-BE1D-4B94-9153-10863EF49D72}.Debug|x86.Build.0 = Debug|Win32
+		{F4844375-BE1D-4B94-9153-10863EF49D72}.Release|Any CPU.ActiveCfg = Release|Win32
+		{F4844375-BE1D-4B94-9153-10863EF49D72}.Release|x64.ActiveCfg = Release|x64
+		{F4844375-BE1D-4B94-9153-10863EF49D72}.Release|x64.Build.0 = Release|x64
+		{F4844375-BE1D-4B94-9153-10863EF49D72}.Release|x86.ActiveCfg = Release|Win32
+		{F4844375-BE1D-4B94-9153-10863EF49D72}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

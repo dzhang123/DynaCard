@@ -1,0 +1,19 @@
+
+
+This folder contains:
+* compute_shape_proerties.cpp
+  A C++ file that is the main program
+* diagram.png
+  A figure that shows how the vertices/side fo the shape are numbered
+  and what I mean by the axis of symmetry
+* real_data
+  A directory of real surface readings, extracted from the Excel
+* gas_interference.csv
+  A sample data file
+* run_v2.sh
+  A shell script that shows compiles the program, runs it on
+  gas_interference.csv, and pipes the output into a small python program
+  that parses it as JSON
+
+To run:
+$ sh run_v2.sh
