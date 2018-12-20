@@ -377,7 +377,7 @@ string output_json(FileHeader header, string state) {
 	json += "\"well_id\" : \"" + header.well_id_number + "\", \n";
 	json += "\"pump_status\" : \"" + state + "\", \n";
 	json += "\"deviceSerial\" : " + header.deviceSerial_Number + ", \n";
-	json += "\"sensorSerial\" : " + header.sensorSerial_Number + ", \n";
+	json += "\"sensorSerial\" : \"" + header.sensorSerial_Number + "\", \n";
 	json += "\"timestamp\" : " + header.timestamp + "\n";
 	json += "}\n";
 
@@ -388,9 +388,29 @@ int main(int argc, char *argv[]) {
     // get filename and minimum weight from command line
     double min_acceptable_peak_weight = stod(argv[2]);
     string fname(argv[1]);
+	bool isDeviceSerialParamPresent = false;
+	string deviceSerialParam = "";
+	bool isTimestampParamPresent = false;
+	string timestampParam = "";
+	if (argc >= 4) {
+		isDeviceSerialParamPresent = true;
+		deviceSerialParam = argv[3];
+	}
+	if (argc >= 5) {
+		isTimestampParamPresent = true;
+		timestampParam = argv[4];
+	}
+	
     // Read in the file
 	FileHeader header;
 	bool headerParsed = peek_file(fname, & header );
+	// overwrite device serial number and timestamp from command-line parameter
+	if (isDeviceSerialParamPresent) {
+		header.deviceSerial_Number = deviceSerialParam;
+	}
+	if (isTimestampParamPresent) {
+		header.timestamp = timestampParam;
+	}
     vector<vector<double> > position_x_y = parse_file(fname);
     vector<double> position = position_x_y[0];
     vector<double> xs = normalize(position_x_y[1]);
