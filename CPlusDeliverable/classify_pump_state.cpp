@@ -16,6 +16,69 @@ g++ hello.cpp
 #include <algorithm>
 using namespace std;
 
+const string WELL_ID_NUMBER = "Well ID Number";
+const string TIMESTAMP = "Timestamp";
+const string DEVICE_SERIAL_NUMBER = "Device Serial Number";
+const string SENSOR_SERIAL_NUMBER = "Sensor Serial Number";
+
+struct FileHeader {
+	string well_id_number;
+	string timestamp;
+	string deviceSerial_Number;
+	string sensorSerial_Number;
+};
+
+bool peek_file(string fname, FileHeader* header) {
+	string line;
+	ifstream ifs(fname);
+	//FileHeader header;
+	bool successful = false;
+	int tally = 0;
+	while (ifs.good()) {
+		getline(ifs, line, '\n');
+		if (line[0] == '#') {
+			size_t found = line.find(WELL_ID_NUMBER);
+			if (found != string::npos) {
+				// found well id number;
+				found = line.find(":", found + 1);
+				header->well_id_number = line.substr(found + 1);
+				tally++;
+				continue;
+			}
+			found = line.find(TIMESTAMP);
+			if (found != string::npos) {
+				// found timestamp;
+				found = line.find(":", found + 1);
+				header->timestamp = line.substr(found + 1);
+				tally++;
+				continue;
+			}
+			found = line.find(DEVICE_SERIAL_NUMBER);
+			if (found != string::npos) {
+				// found serial number
+				found = line.find(":", found + 1);
+				header->deviceSerial_Number = line.substr(found + 1);
+				tally++;
+				continue;
+			}
+			found = line.find(SENSOR_SERIAL_NUMBER);
+			if (found != string::npos) {
+				// found sensor number
+				found = line.find(":", found + 1);
+				header->sensorSerial_Number = line.substr(found + 1);
+				tally++;
+				continue;
+			}
+		}
+		if (tally == 4) {
+			successful = true;
+			break;
+		}
+	}
+	ifs.close();
+	return successful;
+}
+
 // Turn file into triple of pos/x/y vectors
 vector<vector<double> > parse_file(string fname) {
   // Read each column into its own vector
@@ -309,21 +372,36 @@ string guess_pump_state(Shape shape) {
   else return "other??";
 }
 
+string output_json(FileHeader header, string state) {
+	string json = "{\n";
+	json += "\"well_id\" : \"" + header.well_id_number + "\", \n";
+	json += "\"pump_status\" : \"" + state + "\", \n";
+	json += "\"deviceSerial\" : " + header.deviceSerial_Number + ", \n";
+	json += "\"sensorSerial\" : " + header.sensorSerial_Number + ", \n";
+	json += "\"timestamp\" : " + header.timestamp + "\n";
+	json += "}\n";
+
+	return json;
+}
+
 int main(int argc, char *argv[]) {
     // get filename and minimum weight from command line
     double min_acceptable_peak_weight = stod(argv[2]);
     string fname(argv[1]);
     // Read in the file
+	FileHeader header;
+	bool headerParsed = peek_file(fname, & header );
     vector<vector<double> > position_x_y = parse_file(fname);
     vector<double> position = position_x_y[0];
     vector<double> xs = normalize(position_x_y[1]);
     vector<double> ys = normalize(position_x_y[2]);
     // Diagnose flowing well based on max weight
     int max_ind = max_element(ys.begin(), ys.end())-ys.begin();
-    cout << max_ind << endl;
-    cout << "max val " << position_x_y[2][max_ind] << endl;
+    //cout << max_ind << endl;
+    //cout << "max val " << position_x_y[2][max_ind] << endl;
     if (position_x_y[2][max_ind]<min_acceptable_peak_weight) {
-      cout << "flowing well" << endl;
+		cout << output_json(header, "flowing well") << endl;
+      //cout << "flowing well" << endl;
       return 0;
     }
     // Otherwise break into edges
@@ -331,7 +409,8 @@ int main(int argc, char *argv[]) {
     Shape shape(&edges[0], &edges[1], &edges[2], &edges[3]);
     // And classify based on shape
     string state = guess_pump_state(shape);
-    cout << state << endl;
+	cout << output_json(header, state) << endl;
+
     return 0;
 }
 
