@@ -79,6 +79,22 @@ bool peek_file(string fname, FileHeader* header) {
 	return successful;
 }
 
+std::string& ltrim(std::string& str, const std::string& chars = "\t\n\v\f\r") {
+	str.erase(0, str.find_first_not_of(chars));
+	return str;
+}
+
+std::string& rtrim(std::string& str, const std::string& chars = "\t\n\v\f\r ")
+{
+	str.erase(str.find_last_not_of(chars) + 1);
+	return str;
+}
+
+std::string& trim(std::string& str, const std::string& chars = "\t\n\v\f\r ")
+{
+	return ltrim(rtrim(str, chars), chars);
+}
+
 // Turn file into triple of pos/x/y vectors
 vector<vector<double> > parse_file(string fname) {
   // Read each column into its own vector
@@ -374,11 +390,11 @@ string guess_pump_state(Shape shape) {
 
 string output_json(FileHeader header, string state) {
 	string json = "{\n";
-	json += "\"well_id\" : \"" + header.well_id_number + "\", \n";
-	json += "\"pump_status\" : \"" + state + "\", \n";
-	json += "\"deviceSerial\" : " + header.deviceSerial_Number + ", \n";
-	json += "\"sensorSerial\" : \"" + header.sensorSerial_Number + "\", \n";
-	json += "\"timestamp\" : " + header.timestamp + "\n";
+	json += "\"well_id\" : \"" + trim(header.well_id_number) + "\", \n";
+	json += "\"pump_status\" : \"" + trim(state) + "\", \n";
+	json += "\"deviceSerial\" : " + trim(header.deviceSerial_Number) + ", \n";
+	json += "\"sensorSerial\" : \"" + trim(header.sensorSerial_Number) + "\", \n";
+	json += "\"timestamp\" : " + trim(header.timestamp) + "\n";
 	json += "}\n";
 
 	return json;
