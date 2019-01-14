@@ -19,13 +19,13 @@ using namespace std;
 const string WELL_ID_NUMBER = "Well ID Number";
 const string TIMESTAMP = "Timestamp";
 const string DEVICE_SERIAL_NUMBER = "Device Serial Number";
-const string SENSOR_SERIAL_NUMBER = "Sensor Serial Number";
+const string SENSOR_SERIAL_NUMBER = "Sensor Serial Numbers";
 
 struct FileHeader {
 	string well_id_number;
 	string timestamp;
 	string deviceSerial_Number;
-	string sensorSerial_Number;
+	string sensorSerial_Numbers;
 };
 
 bool peek_file(string fname, FileHeader* header) {
@@ -65,7 +65,7 @@ bool peek_file(string fname, FileHeader* header) {
 			if (found != string::npos) {
 				// found sensor number
 				found = line.find(":", found + 1);
-				header->sensorSerial_Number = line.substr(found + 1);
+				header->sensorSerial_Numbers = line.substr(found + 1);
 				tally++;
 				continue;
 			}
@@ -393,7 +393,7 @@ string output_json(FileHeader header, string state) {
 	json += "\"well_id\" : \"" + trim(header.well_id_number) + "\", \n";
 	json += "\"pump_status\" : \"" + trim(state) + "\", \n";
 	json += "\"deviceSerial\" : " + trim(header.deviceSerial_Number) + ", \n";
-	json += "\"sensorSerial\" : \"" + trim(header.sensorSerial_Number) + "\", \n";
+	json += "\"sensorSerials\" : " + trim(header.sensorSerial_Numbers) + ", \n";
 	json += "\"timestamp\" : " + trim(header.timestamp) + "\n";
 	json += "}\n";
 
